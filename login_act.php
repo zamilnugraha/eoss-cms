@@ -10,6 +10,8 @@ $data = mysql_fetch_array($query);
 
 if($Cek > 0){
 	$_SESSION['username']=$uname;
+	$_SESSION['usergroup_id'] = $data['usergroup_id'];
+	$_SESSION['usersubgroup_id'] = $data['usersubgroup_id'];
 	$_SESSION['user_realname']=$data['user_realname'];
 	$_SESSION['status'] = "login";
 	header("location:admin/index.php");
