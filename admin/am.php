@@ -103,6 +103,7 @@ $start = ($page - 1) * $per_hal;
 			OR ITH_USER.user_deptheadname LIKE '%$cari%'
 			OR ITH_USER.nama_atasan LIKE '%$cari%'
 		)
+		AND ITH_USER.user_status = 'AKTIF'
 	GROUP BY
 		ITH_USER.usergroup_id,
 		ITH_USER.usersubgroup_id,
@@ -138,6 +139,7 @@ $start = ($page - 1) * $per_hal;
 	JOIN ITH_USERLEVEL ON ITH_USERLEVEL.userlevel_id = ITH_USER.userlevel_id
 	WHERE
 		ITH_USER.udept_id LIKE 'AREA_MANAGER_%'
+		AND ITH_USER.user_status = 'AKTIF'
 	GROUP BY
 		ITH_USER.usergroup_id,
 		ITH_USER.usersubgroup_id,
