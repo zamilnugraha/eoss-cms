@@ -4,7 +4,7 @@ include 'admin/config.php';
 $uname=$_POST['username'];
 $pass=$_POST['password'];
 $pas=md5($pass);
-$query=mysql_query("SELECT * FROM ith_user WHERE user_nik='$uname' and user_password='$pas'") or die (mysql_error());
+$query=mysql_query("SELECT * FROM ith_user WHERE user_nik='$uname' AND user_password='$pas' AND user_status = 'AKTIF'") or die (mysql_error());
 $Cek = mysql_num_rows($query);
 $data = mysql_fetch_array($query);
 

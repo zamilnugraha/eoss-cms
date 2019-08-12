@@ -52,7 +52,7 @@
 				</div>
 				<div class="modal-body">
 					<?php 
-					$periksa=mysql_query("select * from barang where jumlah <=3");
+					$periksa=mysql_query("SELECT * FROM ith_user WHERE jumlah <=3");
 					while($q=mysql_fetch_array($periksa)){	
 						if($q['jumlah']<=3){			
 							echo "<div style='padding:5px' class='alert alert-warning'><span class='glyphicon glyphicon-info-sign'></span> Stok  <a style='color:red'>". $q['nama']."</a> yang tersisa sudah kurang dari 3 . silahkan pesan lagi !!</div>";	
