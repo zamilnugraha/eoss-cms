@@ -34,7 +34,7 @@ $dataRegion = mysql_query("SELECT ith_usergroup_region.usergroup_name FROM ith_u
                             WHERE ith_usergroup_region.usergroup_kd ='$region'");
 $getStatusRegion = mysql_fetch_array($dataRegion);
 $regional = $getStatusRegion['usergroup_name'];
-$udeptUserGroup = substr($regional, 10,2);
+$udeptUserGroup = substr($regional, 9,2);
 $udeptId = "REGIONAL_MANAGER_".$udeptUserGroup;
 
 //untuk nama jabatan

@@ -16,6 +16,12 @@ $sql = mysql_query("SELECT ith_user.usersubgroup_id FROM ith_user WHERE user_nik
 $getData = mysql_fetch_array($sql);
 $userSubGroupId = $getData['usersubgroup_id'];
 
+if($area =='' || $area ==NULL){
+    $area = $userSubGroupId;
+}else{
+    $area = $area;
+}
+
 //Untuk mencari data area
 $sqlROM  = mysql_query("SELECT DISTINCT
                         ITH_USER.user_nik,
@@ -52,7 +58,7 @@ $dataRegion = mysql_query("SELECT ith_usergroup_region.usergroup_name FROM ith_u
 $getStatusRegion = mysql_fetch_array($dataRegion);
 $regional = $getStatusRegion['usergroup_name'];
 
-$udeptUserGroup = substr($regional, 10,2);
+$udeptUserGroup = substr($regional, 9,2);
 $udeptUserSubGroup = substr($area, -2);
 
 if($udeptUserSubGroup < 10){
@@ -65,7 +71,7 @@ $udeptId = "AREA_MANAGER_".$udeptUserGroup.".".$getLastCharArea;
 $namaJabatan = "AREA_MANAGER ". $udeptUserGroup."-".$getLastCharArea;
 
 if($statusVacant=='Yes' || $userSubGroupId == $area){
-    $sql = mysql_query("UPDATE ith_user SET user_realname='$nama', udept_id='$udeptId', nama_jabatan='$namaJabatan', user_email='$email', userrsc_code='$rsc', usergroup_id='$region', 
+    $save = mysql_query("UPDATE ith_user SET user_realname='$nama', udept_id='$udeptId', nama_jabatan='$namaJabatan', user_email='$email', userrsc_code='$rsc', usergroup_id='$region', 
                         nik_atasan='$nikAtasan', nama_atasan='$namaAtasan', email_atasan='$emailAtasan', usersubgroup_id='$area', lantai='$lantai', handphone='$noHp', telpon='$telephone' WHERE user_nik='$id'");
 }else{
     $_SESSION['warning'] = 'Area ini belum kosong, silahkan pilih area lain...';
@@ -73,7 +79,7 @@ if($statusVacant=='Yes' || $userSubGroupId == $area){
                 
 header("location:am.php");
 
-if($sql){
+if($save){
     $_SESSION['success']='Data berhasil updated.';
 }else{
     $_SESSION['error'] = "Mysql Error : ".mysql_error();

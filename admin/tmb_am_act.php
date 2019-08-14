@@ -66,7 +66,7 @@ $dataRegion = mysql_query("SELECT ith_usergroup_region.usergroup_name FROM ith_u
 $getStatusRegion = mysql_fetch_array($dataRegion);
 $regional = $getStatusRegion['usergroup_name'];
 
-$udeptUserGroup = substr($regional, 10,2);
+$udeptUserGroup = substr($regional, 9,2);
 $udeptUserSubGroup = substr($area, -2);
 
 if($udeptUserSubGroup < 10){
