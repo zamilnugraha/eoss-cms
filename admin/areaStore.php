@@ -1,6 +1,6 @@
 <?php include 'config.php'; ?>
 <?php
-    $sql="SELECT ith_usergroup_area.usersubgroup_kd, ith_usergroup_area.usersubgroup_name FROM ith_usergroup_area WHERE ith_usergroup_area.usergroup_kd ='".$_POST["prov"]."'";
+    $sql="SELECT ith_usergroup_area.usersubgroup_kd, ith_usergroup_area.usersubgroup_name, ith_usergroup_area.status_vacant FROM ith_usergroup_area WHERE ith_usergroup_area.usergroup_kd ='".$_POST["prov"]."'";
     $q=mysql_query($sql);
     while($dataArea=mysql_fetch_array($q)){
     ?>

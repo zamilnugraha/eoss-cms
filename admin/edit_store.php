@@ -23,39 +23,52 @@ while($d=mysql_fetch_array($det)){
 				<td><input type="text" class="form-control" name="emailStore" value="<?php echo $d['user_email'] ?>"></td>
 			</tr>
 			<tr>
+				<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
 				<td>RSC Store</td>
 				<td>
-					<select class="form-control" name="rsc">
-						<?php 
-						$brg=mysql_query("SELECT * FROM ith_userrsc");
-						while($b=mysql_fetch_array($brg)){
-							?>	
-							<option <?php if($d['userrsc_code']==$b['userrsc_code']){echo "selected"; } ?> value="<?php echo $b['userrsc_code']; ?>"><?php echo $b['userrsc_name'] ?></option>
-							<?php 
-						}
-						?>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
-				<td>Region Store</td>
-				<td>
-					<select name="region" id="region" class="form-control">
-						<option value="">- Pilih Region Store -</option>
+					<select name="rsc" id="rsc" class="form-control">
+						<option value="">- Pilih RSC Store -</option>
 					
 						<!-- looping data region -->
 						<?php
-							$sel_prov="SELECT ith_usergroup_region.usergroup_kd,ith_usergroup_region.usergroup_aliasname FROM ith_usergroup_region";
+							$sel_prov="SELECT ith_userrsc.userrsc_code,ith_userrsc.userrsc_name FROM ith_userrsc";
 							$q=mysql_query($sel_prov);
 							while($data_prov=mysql_fetch_array($q)){
 						?>
-							<option <?php if($d['usergroup_id']==$data_prov['usergroup_kd']){echo "selected"; } ?> value="<?php echo $data_prov["usergroup_kd"] ?>"><?php echo $data_prov["usergroup_aliasname"] ?></option>
+							<option <?php if($d['userrsc_code']==$data_prov['userrsc_code']){echo "selected"; } ?> value="<?php echo $data_prov["userrsc_code"] ?>"><?php echo $data_prov["userrsc_name"] ?></option>
 					
 						<?php
 							}
 						?>
 					</select>
+				</td> 
+			</tr>
+			<tr>
+				<td>Region Store</td>
+				<td>
+					<select name="region" id="region" class="form-control">
+						<option value="">- Pilih Area Store -</option>
+					</select>
+					<script>
+						$("#rsc").ready(function(){
+							var rsc_code = $("#rsc").val();
+							$("#imgLoad").show("");
+							$.ajax({
+								type: "POST",
+								dataType: "html",
+								url: "region_store.php",
+								data: "rsc_code="+rsc_code,
+								success: function(msg){
+									if(msg == ''){
+										alert('Tidak ada data region');
+									}else{
+										$("#region").html(msg);                                                     
+									}
+									$("#imgLoad").hide();
+								}
+							});    
+						});
+					</script>
 				</td> 
 			</tr>
 			<tr>		
@@ -65,7 +78,7 @@ while($d=mysql_fetch_array($det)){
 						<option value="">- Pilih Area Store -</option>
 					</select>
 					<script>
-						$("#region").ready(function(){
+						$("#region").click(function(){
 							var id_region = $("#region").val();
 							$("#imgLoad").show("");
 							$.ajax({
