@@ -10,6 +10,16 @@ $area=$_POST['area'];
 $rsc=$_POST['rsc'];
 $tgl = date('Y-m-d h:i');
 
+$sqlUserSubGroup = mysql_query("SELECT ith_user.usersubgroup_id FROM ith_user WHERE user_nik = '$id'");
+$getData = mysql_fetch_array($sqsqlUserSubGroupl);
+$userSubGroupId = $getData['usersubgroup_id'];
+
+if($area =='' || $area ==NULL){
+    $area = $userSubGroupId;
+}else{
+    $area = $area;
+}
+
 //Untuk mencari data area
 $sql  = mysql_query("SELECT DISTINCT
                         ITH_USER.user_nik,

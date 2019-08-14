@@ -182,6 +182,34 @@ $start = ($page - 1) * $per_hal;
 			</div>
 			<div class="modal-body">
 				<form action="tmb_region_act.php" method="post">
+				<div class="form-group">
+						<label>RSC Regional 1</label>								
+						<select class="form-control" name="rsc">
+						<option value="">- Pilih RSC -</option>
+							<?php 
+							$brg=mysql_query("select * from ith_userrsc");
+							while($b=mysql_fetch_array($brg)){
+								?>
+								<option value="<?php echo $b['userrsc_code']; ?>"><?php echo $b['userrsc_name'] ?></option>
+								<?php 
+							}
+							?>
+						</select>
+					</div>
+					<div class="form-group">
+						<label>RSC Regional 2</label>								
+						<select class="form-control" name="rsc2">
+						<option value="">- Pilih RSC -</option>
+							<?php 
+							$rsc2=mysql_query("select * from ith_userrsc");
+							while($c=mysql_fetch_array($rsc2)){
+								?>
+								<option value="<?php echo $c['userrsc_code']; ?>"><?php echo $c['userrsc_name'] ?></option>
+								<?php 
+							}
+							?>
+						</select>
+					</div>
 					<div class="form-group">
 						<label>Nama Region</label>
 						<input name="region" type="text" class="form-control" placeholder="Nama Region .." Required>

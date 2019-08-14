@@ -7,6 +7,16 @@ $rsc=$_POST['rsc'];
 $region=$_POST['region'];
 $area=$_POST['area'];
 
+$sqlUserSubGroup = mysql_query("SELECT ith_user.usersubgroup_id FROM ith_user WHERE user_nik = '$id'");
+$getData = mysql_fetch_array($sqsqlUserSubGroupl);
+$userSubGroupId = $getData['usersubgroup_id'];
+
+if($area =='' || $area ==NULL){
+    $area = $userSubGroupId;
+}else{
+    $area = $area;
+}
+
 //validation insert status area
 $cekRegion = mysql_query("SELECT ith_usergroup_area.status_vacant FROM ith_usergroup_area
                             WHERE ith_usergroup_area.usersubgroup_kd = '$area' AND ith_usergroup_area.usergroup_kd ='$region'");

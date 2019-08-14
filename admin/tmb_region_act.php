@@ -19,9 +19,11 @@ $kodeUrut = $kode +1;
 
 $region=$_POST['region'];
 $aliasRegion=$_POST['aliasRegion'];
+$rsc=$_POST['rsc'];
+$rsc2=$_POST['rsc2'];
 
-$sql = mysql_query("INSERT INTO ith_usergroup_region (usergroup_kd, usergroup_name, userlevel_id, usergroup_aliasname, status_vacant) 
-            VALUES ('$id','$region','8','$aliasRegion', 'Yes')");
+$sql = mysql_query("INSERT INTO ith_usergroup_region (usergroup_kd, usergroup_name, userlevel_id, usergroup_aliasname, status_vacant, userrsc_code, userrsc_code2) 
+            VALUES ('$id','$region','8','$aliasRegion', 'Yes', '$rsc', '$rsc2')");
 header("location:region.php");
 if($sql){
 $_SESSION['success']= "Data berhasil disimpan.";
