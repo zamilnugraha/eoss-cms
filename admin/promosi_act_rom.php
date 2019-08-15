@@ -7,6 +7,16 @@ $nama=$_POST['namaROM'];
 $email=$_POST['emailROM'];
 $rsc=$_POST['rsc'];
 
+$sqlRegion = mysql_query("SELECT ith_user.usersubgroup_id FROM ith_user WHERE user_nik = '$id'");
+$getData = mysql_fetch_array($sqlRegion);
+$userGroupId = $getData['usergroup_id'];
+
+if($region =='' || $region ==NULL){
+    $region = $userGroupId;
+}else{
+    $region = $region;
+}
+
 $data = mysql_query("SELECT ith_user.usergroup_id FROM ith_user WHERE user_nik = '$id'");
 $tampung = mysql_fetch_array($data);
 $region = $tampung['usergroup_id'];

@@ -52,7 +52,7 @@ while ($d = mysql_fetch_array($det)) {
 					<option value="">- Pilih Area Area Manager -</option>
 				</select>
 				<script>
-					$("#rsc").click(function() {
+					$("#rsc").change(function() {
 						var rsc_code = $("#rsc").val();
 						$("#imgLoad").show("");
 						$.ajax({

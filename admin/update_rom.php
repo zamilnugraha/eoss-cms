@@ -13,6 +13,16 @@ $noHp=$_POST['noHp'];
 $deputi=$_POST['deputi'];
 $telephone=$_POST['telephone'];
 
+$sqlRegion = mysql_query("SELECT ith_user.usersubgroup_id FROM ith_user WHERE user_nik = '$id'");
+$getData = mysql_fetch_array($sqlRegion);
+$userGroupId = $getData['usergroup_id'];
+
+if($region =='' || $region ==NULL){
+    $region = $userGroupId;
+}else{
+    $region = $region;
+}
+
 $sqls = mysql_query("SELECT ith_user.usersubgroup_id FROM ith_user WHERE user_nik = '$id'");
 $getData = mysql_fetch_array($sqls);
 $userSubGroupId = $getData['usersubgroup_id'];
