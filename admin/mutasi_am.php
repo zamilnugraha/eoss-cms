@@ -23,68 +23,84 @@ while($d=mysql_fetch_array($det)){
 				<td><input type="text" class="form-control" name="emailAM" value="<?php echo $d['user_email'] ?>" disabled="disabled"></td>
 			</tr>
 			<tr>
-				<td>RSC Store</td>
-				<td>
-					<select class="form-control" name="rsc">
-						<?php 
-						$brg=mysql_query("SELECT * FROM ith_userrsc");
-						while($b=mysql_fetch_array($brg)){
-							?>	
-							<option <?php if($d['userrsc_code']==$b['userrsc_code']){echo "selected"; } ?> value="<?php echo $b['userrsc_code']; ?>"><?php echo $b['userrsc_name'] ?></option>
-							<?php 
+			<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
+			<td>RSC Area Manager</td>
+			<td>
+				<select name="rsc" id="rsc" class="form-control">
+					<option value="">- Pilih RSC Area Manager -</option>
+
+					<!-- looping data region -->
+					<?php
+						$sel_prov = "SELECT ith_userrsc.userrsc_code,ith_userrsc.userrsc_name FROM ith_userrsc";
+						$q = mysql_query($sel_prov);
+						while ($data_prov = mysql_fetch_array($q)) {
+							?>
+					<option <?php if ($d['userrsc_code'] == $data_prov['userrsc_code']) {
+										echo "selected";
+									} ?> value="<?php echo $data_prov["userrsc_code"] ?>"><?php echo $data_prov["userrsc_name"] ?></option>
+
+					<?php
 						}
 						?>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
-				<td>Region Store</td>
-				<td>
-					<select name="region" id="region" class="form-control">
-						<option value="">- Pilih Region Store -</option>
-					
-						<!-- looping data region -->
-						<?php
-							$sel_prov="SELECT ith_usergroup_region.usergroup_kd,ith_usergroup_region.usergroup_aliasname FROM ith_usergroup_region";
-							$q=mysql_query($sel_prov);
-							while($data_prov=mysql_fetch_array($q)){
-						?>
-							<option <?php if($d['usergroup_id']==$data_prov['usergroup_kd']){echo "selected"; } ?> value="<?php echo $data_prov["usergroup_kd"] ?>"><?php echo $data_prov["usergroup_aliasname"] ?></option>
-						<?php
-							}
-						?>
-					</select>
-				</td> 
-			</tr>
-			<tr>		
-				<td>Area Store</td>
-				<td>
-					<select name="area" id="area" class="form-control">
-						<option value="">- Pilih Area Store -</option>
-					</select>
-					<script>
-						$("#region").ready(function(){
-							var id_region = $("#region").val();
-							$("#imgLoad").show("");
-							$.ajax({
-								type: "POST",
-								dataType: "html",
-								url: "area_am.php",
-								data: "prov="+id_region,
-								success: function(msg){
-									if(msg == ''){
-										alert('Tidak ada data area');
-									}else{
-										$("#area").html(msg);                                                     
-									}
-									$("#imgLoad").hide();
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td>Region Area Manager</td>
+			<td>
+				<select name="region" id="region" class="form-control">
+					<option value="">- Pilih Area Area Manager -</option>
+				</select>
+				<script>
+					$("#rsc").click(function() {
+						var rsc_code = $("#rsc").val();
+						$("#imgLoad").show("");
+						$.ajax({
+							type: "POST",
+							dataType: "html",
+							url: "region_am.php",
+							data: "rsc_code=" + rsc_code,
+							success: function(msg) {
+								if (msg == '') {
+									alert('Tidak ada data region');
+								} else {
+									$("#region").html(msg);
 								}
-							});    
+								$("#imgLoad").hide();
+							}
 						});
-					</script>
-				</td> 				
-			</tr>
+					});
+				</script>
+			</td>
+		</tr>
+		<tr>
+			<td>Area AM</td>
+			<td>
+				<select name="area" id="area" class="form-control">
+					<option value="">- Pilih Area AM -</option>
+				</select>
+				<script>
+					$("#region").click(function() {
+						var id_region = $("#region").val();
+						$("#imgLoad").show("");
+						$.ajax({
+							type: "POST",
+							dataType: "html",
+							url: "area_am.php",
+							data: "prov=" + id_region,
+							success: function(msg) {
+								if (msg == '') {
+									alert('Tidak ada data area');
+								} else {
+									$("#area").html(msg);
+								}
+								$("#imgLoad").hide();
+							}
+						});
+					});
+				</script>
+			</td>
+		</tr>
 			<tr>
 				<td></td>
 				<td><input type="submit" class="btn btn-info" value="Simpan"></td>

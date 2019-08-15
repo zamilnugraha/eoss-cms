@@ -50,7 +50,7 @@ while($d=mysql_fetch_array($det)){
 						<option value="">- Pilih Area Store -</option>
 					</select>
 					<script>
-						$("#rsc").ready(function(){
+						$("#rsc").click(function(){
 							var rsc_code = $("#rsc").val();
 							$("#imgLoad").show("");
 							$.ajax({

@@ -10,11 +10,17 @@ $area=$_POST['area'];
 $sqlUserSubGroup = mysql_query("SELECT ith_user.usersubgroup_id FROM ith_user WHERE user_nik = '$id'");
 $getData = mysql_fetch_array($sqsqlUserSubGroupl);
 $userSubGroupId = $getData['usersubgroup_id'];
-
+$userGroupId = $getData['usergroup_id'];
 if($area =='' || $area ==NULL){
     $area = $userSubGroupId;
 }else{
     $area = $area;
+}
+
+if($region =='' || $region ==NULL){
+    $region = $userGroupId;
+}else{
+    $region = $region;
 }
 
 //validation insert status area

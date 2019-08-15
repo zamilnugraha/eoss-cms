@@ -12,16 +12,22 @@ $lantai=$_POST['lantai'];
 $noHp=$_POST['noHp'];
 $telephone=$_POST['telephone'];
 
+
 $sql = mysql_query("SELECT ith_user.usersubgroup_id FROM ith_user WHERE user_nik = '$id'");
 $getData = mysql_fetch_array($sql);
 $userSubGroupId = $getData['usersubgroup_id'];
-
+$userGroupId = $getData['usergroup_id'];
 if($area =='' || $area ==NULL){
     $area = $userSubGroupId;
 }else{
     $area = $area;
 }
 
+if($region =='' || $region ==NULL){
+    $region = $userGroupId;
+}else{
+    $region = $region;
+}
 //Untuk mencari data area
 $sqlROM  = mysql_query("SELECT DISTINCT
                         ITH_USER.user_nik,

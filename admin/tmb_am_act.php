@@ -13,7 +13,6 @@ $lantai=$_POST['lantai'];
 $password = md5($nik);
 $rsc=$_POST['rsc'];
 $tgl = date('Y-m-d h:i');
-$userUnitNames = $_POST['rscName'];
 
 //Untuk mencari data area
 $sql  = mysql_query("SELECT DISTINCT

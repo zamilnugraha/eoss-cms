@@ -294,44 +294,53 @@ $start = ($page - 1) * $per_hal;
 						<input name="emailAM" type="text" class="form-control" placeholder="Email Area Manager .." Required>
 					</div>
 					<div class="form-group">
-						<label>RSC Area Manager</label>								
-						<select class="form-control" name="rsc">
-						<option value="">- Pilih RSC AM -</option>
-							<?php 
-							$brg=mysql_query("select * from ith_userrsc");
-							while($b=mysql_fetch_array($brg)){
-								?>
-								<option value="<?php echo $b['userrsc_code']; ?>"><?php echo $b['userrsc_name'] ?></option>
-								<?php 
-							}
-							?>
-						</select>
-					</div>
-					<div class="form-group">
 						<script type="text/javascript" src="jquery-1.4.2.min.js"></script>
-							<label>Region Area Manager</label> 
-							<select name="region" id="region" class="form-control">
-								<option value="">- Pilih Region AM -</option>
-							
-								<!-- looping data region -->
-								<?php
-									$sel_prov="SELECT ith_usergroup_region.usergroup_kd,ith_usergroup_region.usergroup_aliasname,ith_usergroup_region.status_vacant 
-												FROM ith_usergroup_region";
-									$q=mysql_query($sel_prov);
-									while($data_prov=mysql_fetch_array($q)){
-								?>
-									<option value="<?php echo $data_prov["usergroup_kd"] ?>"><?php echo $data_prov["usergroup_aliasname"] ?></option>
-							
-								<?php
-									}
-								?>
-							</select>
+								<label>RSC Area Manager</label> 
+								<select name="rsc" id="rsc" class="form-control">
+									<option value="">- Pilih RSC Area Manager -</option>
+								
+									<!-- looping data region -->
+									<?php
+										$sel_rsc="SELECT ith_userrsc.userrsc_code,ith_userrsc.userrsc_name FROM ith_userrsc";
+										$q=mysql_query($sel_rsc);
+										while($dataRsc=mysql_fetch_array($q)){
+									?>
+										<option value="<?php echo $dataRsc["userrsc_code"] ?>"><?php echo $dataRsc["userrsc_name"] ?></option>
+								
+									<?php
+										}
+									?>
+								</select>
+								<label>Region Area Manager</label> 
+								<select name="region" id="region" class="form-control">
+									<option value="">- Pilih Region AM -</option>
+								</select>
+								<script>
+									$("#rsc").change(function(){
+										var rsc_code = $("#rsc").val();
+										$("#imgLoad").show("");
+										$.ajax({
+											type: "POST",
+											dataType: "html",
+											url: "region_store.php",
+											data: "rsc_code=" + rsc_code,
+											success: function(msg){
+												if(msg == ''){
+													alert('Tidak ada data region');
+												}else{
+													$("#region").html(msg);                                                     
+												}
+												$("#imgLoad").hide();
+											}
+										});    
+									});
+							</script>
 							<label>Area Area Manager</label> 
 							<select name="area" id="area" class="form-control">
 								<option value="">- Pilih Area AM -</option>
 							</select>
 							<script>
-								$("#region").change(function(){
+								$("#region").click(function(){
 									var id_region = $("#region").val();
 									$("#imgLoad").show("");
 									$.ajax({
